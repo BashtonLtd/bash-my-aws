@@ -96,9 +96,9 @@ complete -F _bma_stacks_completion stack-tail
 complete -F _bma_stacks_completion stack-template
 complete -F _bma_stacks_completion stack-outputs
 complete -F _bma_stacks_completion stack-diff
-complete -F _bma_elbs_completion elb-instances
 complete -F _bma_dbs_completion db-instances
 complete -F _bma_dbs_completion db-events
 complete -F _bma_dbs_completion db-instance-az
 complete -F _bma_dbs_completion db-instance-dns
+complete -F _bma_elbs_completion elb-instances
 complete -f stack-validate
