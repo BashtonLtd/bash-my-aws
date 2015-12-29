@@ -67,6 +67,9 @@ asg-processes_suspended
 asg-cpu                  asg-ips                  asg-resume
 asg-desired-size-set     asg-max-size-set         asgs
 asg-elb                  asg-min-size-set         asg-suspend
+
+$ db
+db-events        db-instance-az   db-instance-dns  db-instances
 ```
 
 For more info on the query syntax used by AWSCLI, check out http://jmespath.org/tutorial.html
