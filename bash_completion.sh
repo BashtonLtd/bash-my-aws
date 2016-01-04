@@ -51,16 +51,6 @@ _bma_dbs_completion() {
     return 0
 }
 
-_bma_multipass_completion() {
-    local command="$1"
-    local word="$2"
-    local options="$(ls $BMA_MULTIPASS_DIR)"
-    COMPREPLY=($(compgen -W "${options}" -- ${word}))
-}
-
-complete -F _bma_multipass_completion multipass-edit
-complete -F _bma_multipass_completion multipass-use
-
 complete -F _bma_instances_completion instances
 complete -F _bma_instances_completion instance-asg
 complete -F _bma_instances_completion instance-az
@@ -89,6 +79,7 @@ complete -F _bma_asgs_completion asg-resume
 complete -F _bma_asgs_completion asg-suspend
 complete -F _bma_asgs_completion asg-elb
 complete -F _bma_asgs_completion asg-scaling-activities
+complete -F _bma_asgs_completion asg-elb
 complete -F _bma_stacks_completion stacks
 complete -F _bma_stacks_completion stack-cancel-update
 complete -F _bma_stacks_completion stack-update
@@ -110,5 +101,4 @@ complete -F _bma_dbs_completion db-instances
 complete -F _bma_dbs_completion db-events
 complete -F _bma_dbs_completion db-instance-az
 complete -F _bma_dbs_completion db-instance-dns
-complete -F _bma_elbs_completion elb-instances
 complete -f stack-validate

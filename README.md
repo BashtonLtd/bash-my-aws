@@ -67,6 +67,7 @@ asg-processes_suspended
 asg-cpu                  asg-ips                  asg-resume
 asg-desired-size-set     asg-max-size-set         asgs
 asg-elb                  asg-min-size-set         asg-suspend
+<<<<<<< dd3d6402ed342739ffbaa606cba0e542f8936794
 
 $ db
 db-events        db-instance-az   db-instance-dns  db-instances
