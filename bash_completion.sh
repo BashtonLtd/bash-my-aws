@@ -79,8 +79,6 @@ complete -F _bma_asgs_completion asg-resume
 complete -F _bma_asgs_completion asg-suspend
 complete -F _bma_asgs_completion asg-elb
 complete -F _bma_asgs_completion asg-scaling-activities
-complete -F _bma_asgs_completion asg-elb
-complete -F _bma_asgs_completion asg-scaling-activities
 complete -F _bma_stacks_completion stacks
 complete -F _bma_stacks_completion stack-cancel-update
 complete -F _bma_stacks_completion stack-update
@@ -102,4 +100,5 @@ complete -F _bma_dbs_completion db-instances
 complete -F _bma_dbs_completion db-events
 complete -F _bma_dbs_completion db-instance-az
 complete -F _bma_dbs_completion db-instance-dns
+complete -F _bma_elbs_completion elb-instances
 complete -f stack-validate

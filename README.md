@@ -3,10 +3,6 @@
 bash-my-aws
 ===========
 
-![caveman](./doc/caveman.jpg)
-
-** 22 Nov 2015 - In breaking (change) news, we're proud to release the complete rework! **
-
 bash-my-aws assists Infrastructure Jockeys using Amazon Web Services from the
 command line.
 
@@ -35,7 +31,7 @@ $ git clone https://github.com/realestate-com-au/bash-my-aws.git ~/.bash-my-aws
 
 ## Usage
 
-Source the functions you want with something like:
+Source the functions with something like:
 ```ShellSession
 $ for f in ~/.bash-my-aws/lib/*-functions; do source $f; done
 ```
