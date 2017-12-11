@@ -57,7 +57,7 @@ _bma_dbs_completion() {
 
 EOF
 
-for type in instance asg stack db elb; do
+for type in instance asg stack db elb alb; do
   functions=$(
     cat ${ROOT_DIR}/lib/${type}-functions |
     grep -e "^[^_#][^\ ]*()\ \?{" |

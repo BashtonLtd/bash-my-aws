@@ -185,6 +185,44 @@ asg-elb() {
   asgs ${inputs} --query ${query}
 }
 
+asg-targetgroups() {
+  # type: detail
+  # returns target groups associated with an autoscaling group
+  local inputs=$(__bma_read_inputs $@)
+  [[ -z "$inputs" ]] && __bma_usage "auto-scaling-group" && return 1
+  local query='
+    AutoScalingGroups[][
+      [
+        TargetGroupARNs
+      ]
+    ]
+  '
+
+  asgs ${inputs} --query ${query}
+
+}
+
+asg-targetgroup-instances() {
+  # type: detail
+  # returns all instances in an autoscaling group, with their
+  # target group health status
+  local inputs=$(__bma_read_inputs $@)
+  [[ -z "$inputs" ]] && __bma_usage "auto-scaling-group" && return 1
+  local query='
+    TargetHealthDescriptions[][
+      Target.Id,
+      TargetHealth.State
+    ]
+  '
+
+  for group in $(asg-targetgroups $inputs); do
+      aws elbv2 describe-target-health \
+        --target-group-arn $group      \
+        --query "${query}"             \
+        --output ${output:-"text"}
+  done
+}
+
 asg-scaling-activities() {
   # type: query
   # show all scaling activities
