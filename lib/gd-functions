@@ -1,0 +1,73 @@
+#!/bin/bash
+#
+# gd-functions
+# Helpers for Amazon GuardDuty
+
+gd-detector-ids() {
+  # type: query
+  # Return detector IDs, only really useful for use by other functions
+  local inputs=$(__bma_read_inputs $@)
+
+  local default_query='
+    DetectorIds[]
+  '
+
+  local query=$(__bma_read_switches $inputs | grep ^--query | cut -d\  -f2-)
+  local output=$(__bma_read_switches $inputs | grep ^--output | cut -d\  -f2-)
+  [[ -z $query ]] && query=$default_query
+
+  aws guardduty list-detectors                                    \
+    --query "${query}"                                            \
+    --output ${output:-"text"}
+}
+
+gd-finding-ids() {
+  # type: query
+  # Return finding IDs, only really useful for use by other functions
+  local inputs=$(__bma_read_inputs $@)
+  [[ -z "$inputs" ]] && __bma_usage "detector-id" && return 1
+
+  local default_query='
+    FindingIds[]
+  '
+
+  local query=$(__bma_read_switches $inputs | grep ^--query | cut -d\  -f2-)
+  local output=$(__bma_read_switches $inputs | grep ^--output | cut -d\  -f2-)
+  [[ -z $query ]] && query=$default_query
+
+  aws guardduty list-findings                                     \
+    --detector-id ${inputs}                                       \
+    --query "${query}"                                            \
+    --output ${output:-"text"}
+}
+
+gd-findings() {
+  # type: query
+  # return finding ID, description, count  and severity
+
+
+  local inputs=$(__bma_read_inputs $@)
+  local default_query='
+    Findings[*][
+      Id,
+      Service.EventLastSeen,
+      Title,
+      Service.Count,
+      Severity
+    ]
+  '
+
+  local query=$(__bma_read_switches $inputs | grep ^--query | cut -d\  -f2-)
+  local output=$(__bma_read_switches $inputs | grep ^--output | cut -d\  -f2-)
+  [[ -z $query ]] && query=$default_query
+
+
+  for detector in $(gd-detector-ids); do
+    local finding_ids="$(gd-finding-ids $detector)"
+    aws guardduty get-findings                                    \
+      --detector-id "${detector}"                                 \
+      --finding-ids ${finding_ids}                                \
+      --query "${query}"                                          \
+      --output ${output:-"text"}
+  done
+}
