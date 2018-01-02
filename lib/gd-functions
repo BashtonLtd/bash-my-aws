@@ -21,7 +21,7 @@ gd-detector-ids() {
     --output ${output:-"text"}
 }
 
-gd-finding-ids() {
+_gd-finding-ids() {
   # type: query
   # Return finding IDs, only really useful for use by other functions
   local inputs=$(__bma_read_inputs $@)
@@ -63,7 +63,7 @@ gd-findings() {
 
 
   for detector in $(gd-detector-ids); do
-    local finding_ids="$(gd-finding-ids $detector)"
+    local finding_ids="$(_gd-finding-ids $detector)"
     aws guardduty get-findings                                    \
       --detector-id "${detector}"                                 \
       --finding-ids ${finding_ids}                                \
