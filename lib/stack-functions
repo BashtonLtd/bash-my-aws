@@ -329,6 +329,7 @@ stack-template() {
   local stack=$(_stack_name_arg $(__bma_read_resources ${inputs}))
 
   aws cloudformation get-template   \
+    --output json                   \
     --stack-name ${stack}           \
     --query TemplateBody | jq --sort-keys .
 }
