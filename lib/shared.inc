@@ -5,7 +5,7 @@
 source $(dirname ${BASH_SOURCE[0]})/parameter.inc
 
 __bma_error() {
-  echo "ERROR: $@" > /dev/stderr
+  echo "ERROR: $@" >&2
   BMA_STATUS=1
   # TODO: Return zero. Returning non-zero should only happen when there is a
   # failure to return an error.
@@ -13,7 +13,7 @@ __bma_error() {
 }
 
 __bma_usage() {
-  echo "USAGE: ${FUNCNAME[1]} $@" > /dev/stderr
+  echo "USAGE: ${FUNCNAME[1]} $@" >&2
 }
 
 ## vim: ft=sh
